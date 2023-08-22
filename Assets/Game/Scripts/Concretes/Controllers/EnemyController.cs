@@ -23,7 +23,11 @@ namespace RunnerTask.Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            
+            if (other.GetComponent<PlayerController>())
+            {
+                Debug.Log("Accident! One right is over!");
+            }
+
         }
 
     }
