@@ -2,6 +2,7 @@ using RunnerTask.Abstracts.Controllers;
 using RunnerTask.Patterns;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace RunnerTask.Controllers
@@ -21,8 +22,12 @@ namespace RunnerTask.Controllers
 
         WaitForSeconds _waitForSecond;
         ObjectPool _objectPool;
+        List<GameObject> _activeObjects = new List<GameObject>();
 
+
+        public override List<GameObject> ActiveEnemies => _activeObjects;
         public override bool SingleType => _singleType;
+
 
         private void Awake()
         {
@@ -48,6 +53,7 @@ namespace RunnerTask.Controllers
             {
                 StartCoroutine(SpawnRoutineRandom());
             }
+            if (SingleType) return;
             StartCoroutine(ObjectCheckTransform());
 
         }
@@ -113,6 +119,7 @@ namespace RunnerTask.Controllers
             while (true)
             {
                 ActiveObjectsHandle();
+                //Debug.Log("This process worked");
                 yield return wait;
             }
         }

@@ -1,5 +1,4 @@
 using RunnerTask.Abstracts.Controllers;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,8 +42,7 @@ namespace RunnerTask.Patterns
                 for (int i = 0; i < _poolSize; i++)
                 {
                     GameObject obj = GameObject.Instantiate(_objectPrefab, _controller.transform);
-                    obj.SetActive(false);
-                    _pooledObjects.Enqueue(obj);
+                    AddPool(obj, false);
                 }
             }
             else
@@ -52,25 +50,48 @@ namespace RunnerTask.Patterns
                 for (int i = 0; i < _objectPrefabs.Length; i++)
                 {
                     GameObject obj = GameObject.Instantiate(_objectPrefabs[i], _controller.transform);
-                    obj.SetActive(false);
-                    _pooledObjects.Enqueue(obj);
+                    AddPool(obj, false);
                 }
             }
 
         }
-
+        /**/
         public GameObject GetPooledObject()
         {
             GameObject obj = _pooledObjects.Dequeue();
-            obj.SetActive(true);
-            _pooledObjects.Enqueue(obj);
-            return obj;
+            return AddPool(obj, true);
 
         }
+
         public GameObject GetPooledObjectRandom()
         {
-            GameObject obj = _pooledObjects.ToArray()[Random.Range(0, _pooledObjects.Count)];
-            obj.SetActive(true);
+            //GameObject obj = _pooledObjects.ToArray()[Random.Range(0, _pooledObjects.Count)];
+            GameObject obj = _pooledObjects.ToArray()[Random.Range(0, 3)];
+
+            if (!obj.activeSelf)
+            {
+
+                return AddPool(obj, true);
+            }
+            else
+            {
+                for (int i = 0; i < _pooledObjects.Count; i++)
+                {
+                    if (!_pooledObjects.ToArray()[i].activeSelf)
+                    {
+                        return _pooledObjects.ToArray()[i];
+                    }
+                    //Debug.Log("Resource new enemy");
+                }
+                return null;
+            }
+
+        }
+        /**/
+
+        private GameObject AddPool(GameObject obj, bool state)
+        {
+            obj.SetActive(state);
             _pooledObjects.Enqueue(obj);
             return obj;
         }
