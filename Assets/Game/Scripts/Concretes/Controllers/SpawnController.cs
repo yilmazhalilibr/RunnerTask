@@ -2,7 +2,6 @@ using RunnerTask.Abstracts.Controllers;
 using RunnerTask.Patterns;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace RunnerTask.Controllers
@@ -22,12 +21,11 @@ namespace RunnerTask.Controllers
 
         WaitForSeconds _waitForSecond;
         ObjectPool _objectPool;
-        List<GameObject> _activeObjects = new List<GameObject>();
 
+        public event System.Action OnSpawnObject;
 
-        public override List<GameObject> ActiveEnemies => _activeObjects;
         public override bool SingleType => _singleType;
-
+        public float ExtraSpawnTime { get; set; }
 
         private void Awake()
         {
@@ -73,7 +71,7 @@ namespace RunnerTask.Controllers
             }
         }
 
-        private IEnumerator SpawnRoutine()
+        public IEnumerator SpawnRoutine()
         {
             while (true)
             {
@@ -84,16 +82,19 @@ namespace RunnerTask.Controllers
             }
         }
 
-        private IEnumerator SpawnRoutineRandom()
+        public IEnumerator SpawnRoutineRandom()
         {
+            int i = 0;
+
             while (true)
             {
-
+                if (i == 0) yield return new WaitForSeconds(Random.Range(0, 10));
+                i = 1;
                 var obj = _objectPool.GetPooledObjectRandom();
                 obj.transform.position = transform.position;
-
-                yield return new WaitForSeconds(Random.Range(_spawnMinTime, _spawnMaxTime));
-
+                OnSpawnObject?.Invoke();
+                yield return new WaitForSeconds(Random.Range(_spawnMinTime + ExtraSpawnTime, _spawnMaxTime + ExtraSpawnTime));
+                ExtraSpawnTime = 0;
             }
         }
 

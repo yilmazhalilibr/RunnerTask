@@ -65,8 +65,7 @@ namespace RunnerTask.Patterns
 
         public GameObject GetPooledObjectRandom()
         {
-            //GameObject obj = _pooledObjects.ToArray()[Random.Range(0, _pooledObjects.Count)];
-            GameObject obj = _pooledObjects.ToArray()[Random.Range(0, 3)];
+            GameObject obj = _pooledObjects.ToArray()[Random.Range(0, _pooledObjects.Count)];
 
             if (!obj.activeSelf)
             {
