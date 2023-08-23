@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RunnerTask.Controllers
 {
-    public class EnemyController : Controller
+    public class ObjectController : Controller
     {
         [SerializeField] float _speed;
 
@@ -21,16 +21,6 @@ namespace RunnerTask.Controllers
         {
             _mover.Move(_speed);
         }
-        
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.GetComponent<PlayerController>())
-            {
-                Debug.Log("Accident! One right is over!");
-            }
-
-        }
-
     }
 }
 

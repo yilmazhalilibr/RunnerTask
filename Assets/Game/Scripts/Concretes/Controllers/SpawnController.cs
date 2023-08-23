@@ -1,41 +1,120 @@
 using RunnerTask.Abstracts.Controllers;
 using RunnerTask.Patterns;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RunnerTask.Controllers
 {
     public class SpawnController : Controller
     {
-        [Header("Spawn Properties")]
-        [SerializeField] float _spawnTime;
+        [Header("Single Object Pool")]
+        [SerializeField] float _spawnInterval = .3f;
+        [SerializeField] int _poolSize = 20;
+        [SerializeField] GameObject _objectPrefab;
+        [SerializeField] bool _singleType;
+
+        [Header("Multiple Object Pool")]
+        [SerializeField] float _spawnMinTime;
         [SerializeField] float _spawnMaxTime;
-        [Header("Game Object Prefabs Of The Object Pool")]
-        [SerializeField] GameObject[] _instantiateObjects;
+        [SerializeField] GameObject[] _objectPrefabs;
 
-        private bool _canSpawn = true;
-
-        ObjectPool _pool;
         WaitForSeconds _waitForSecond;
+        ObjectPool _objectPool;
 
-        public bool CanSpawn { get { return _canSpawn; } set { _canSpawn = value; } }
+        public override bool SingleType => _singleType;
+
         private void Awake()
         {
-            _pool = new ObjectPool(gameObject, _instantiateObjects);
-            _waitForSecond = new WaitForSeconds(_spawnTime);
+            if (_singleType)
+            {
+                _objectPool = new ObjectPool(this, _objectPrefab, _poolSize);
+            }
+            else
+            {
+                _objectPool = new ObjectPool(this, _objectPrefabs);
+            }
 
-            StartCoroutine(Spawn());
         }
 
-        IEnumerator Spawn()
+        private void Start()
         {
-            while (CanSpawn)
+            if (SingleType)
             {
-                yield return _pool.GetRandomPoolObject();
+                _waitForSecond = new WaitForSeconds(_spawnInterval);
+                StartCoroutine(SpawnRoutine());
+            }
+            else
+            {
+                StartCoroutine(SpawnRoutineRandom());
+            }
+            StartCoroutine(ObjectCheckTransform());
+
+        }
+        private void OnValidate()
+        {
+            if (SingleType)
+            {
+                _spawnMinTime = 0;
+                _spawnMaxTime = 0;
+                _objectPrefabs = null;
+            }
+            else
+            {
+                _spawnInterval = 0;
+                _poolSize = 0; _objectPrefab = null;
+
+            }
+        }
+
+        private IEnumerator SpawnRoutine()
+        {
+            while (true)
+            {
+                var obj = _objectPool.GetPooledObject();
+                obj.transform.position = transform.position;
+
                 yield return _waitForSecond;
             }
-            _waitForSecond = new WaitForSeconds(Random.Range(1.5f, _spawnMaxTime));
+        }
 
+        private IEnumerator SpawnRoutineRandom()
+        {
+            while (true)
+            {
+
+                var obj = _objectPool.GetPooledObjectRandom();
+                obj.transform.position = transform.position;
+
+                yield return new WaitForSeconds(Random.Range(_spawnMinTime, _spawnMaxTime));
+
+            }
+        }
+
+        public void ActiveObjectsHandle()
+        {
+            var activeObjects = GetComponentsInChildren<EnemyController>();
+
+            for (int i = 0; i < activeObjects.Length; i++)
+            {
+                if (activeObjects[i].transform.position.z < -5f)
+                {
+                    activeObjects[i].gameObject.SetActive(false);
+                    activeObjects[i].transform.position = gameObject.transform.position;
+                }
+
+            }
+        }
+
+        IEnumerator ObjectCheckTransform()
+        {
+            var wait = new WaitForSeconds(1f);
+
+            while (true)
+            {
+                ActiveObjectsHandle();
+                yield return wait;
+            }
         }
 
 
