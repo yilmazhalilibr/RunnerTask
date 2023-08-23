@@ -14,7 +14,7 @@ namespace RunnerTask.Controllers
 
         private void Awake()
         {
-            _mover = new Mover(this);
+            _mover = new ObjectMover(this);
         }
 
         private void FixedUpdate()

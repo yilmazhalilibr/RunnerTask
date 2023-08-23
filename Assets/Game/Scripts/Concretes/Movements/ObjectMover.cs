@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace RunnerTask.Movements
 {
-    public class Mover : IMover
+    public class ObjectMover : IMover
     {
         Controller _controller;
-        public Mover(Controller controller)
+        public ObjectMover(Controller controller)
         {
             _controller = controller;
         }
