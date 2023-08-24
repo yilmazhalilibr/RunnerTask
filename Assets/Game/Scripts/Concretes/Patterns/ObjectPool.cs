@@ -69,14 +69,5 @@ namespace RunnerTask.Patterns
 
         }
 
-        public GameObject GetPoolObjectRandom()
-        {
-            GameObject obj = _pooledObjects.ToArray()[Random.Range(0, _pooledObjects.Count)];
-            obj.SetActive(true);
-            _pooledObjects.Enqueue(obj);
-            return obj;
-        }
-
-
     }
 }

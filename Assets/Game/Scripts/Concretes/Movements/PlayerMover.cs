@@ -11,16 +11,16 @@ namespace RunnerTask.Movements
 
         Controller _controller;
 
-        private Vector2 touchStartPosition;
+        private Vector2 _touchStartPosition;
 
         private bool _oppositeDirection = false;
         private float _direction;
-        private bool isDragging = false;
-        private float targetPositionX = 0f;
-        public float clampValue = 4.5f;
+        private bool _isDragging = false;
+        private float _targetPositionX = 0f;
+        public float _clampValue = 4.5f;
 
         public bool OppositeDirection { get { return _oppositeDirection; } set { _oppositeDirection = value; } }
-
+        public bool Dragging => _isDragging;
         public PlayerMover(Controller controller)
         {
             _controller = controller;
@@ -37,24 +37,24 @@ namespace RunnerTask.Movements
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        touchStartPosition = touch.position;
-                        isDragging = true;
+                        _touchStartPosition = touch.position;
+                        _isDragging = true;
                         break;
 
                     case TouchPhase.Moved:
                         Vector2 deltaPosition = touch.deltaPosition * _direction;
                         float deltaX = deltaPosition.x * Time.deltaTime * speed;
-                        targetPositionX += deltaX;
+                        _targetPositionX += deltaX;
                         break;
 
                     case TouchPhase.Ended:
-                        isDragging = false;
+                        _isDragging = false;
                         break;
                 }
 
             }
-            targetPositionX = Mathf.Clamp(targetPositionX, -clampValue, clampValue);
-            _controller.transform.position = new Vector3(Mathf.Lerp(_controller.transform.position.x, targetPositionX, Time.deltaTime * speed), _controller.transform.position.y, _controller.transform.position.z);
+            _targetPositionX = Mathf.Clamp(_targetPositionX, -_clampValue, _clampValue);
+            _controller.transform.position = new Vector3(Mathf.Lerp(_controller.transform.position.x, _targetPositionX, Time.deltaTime * speed), _controller.transform.position.y, _controller.transform.position.z);
         }
 
 

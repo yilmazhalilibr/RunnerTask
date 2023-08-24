@@ -29,7 +29,6 @@ namespace RunnerTask.Controllers
         public event System.Action OnSpawnObject;
 
         public override bool SingleType => _singleType;
-        public float ExtraSpawnTime { get; set; }//from manager
 
         private void Awake()
         {
@@ -40,7 +39,7 @@ namespace RunnerTask.Controllers
         {
             _waitForSecond = new WaitForSeconds(_spawnInterval);
 
-            var coroutine = SingleType ? SpawnRoutine() : SpawnRoutineRandom();
+            var coroutine = SingleType ? SpawnRoutine() : SpawnRoutineRandomTime();
             StartCoroutine(coroutine);
         }
 
@@ -73,7 +72,7 @@ namespace RunnerTask.Controllers
             }
         }
 
-        public IEnumerator SpawnRoutineRandom()
+        public IEnumerator SpawnRoutineRandomTime()
         {
             while (true)
             {

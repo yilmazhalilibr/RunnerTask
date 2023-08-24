@@ -29,9 +29,10 @@ namespace RunnerTask.Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<PlayerController>())
+            if (other.TryGetComponent(out PlayerController playerController))
             {
                 Debug.Log("Accident! One right is over!");
+                playerController.Rights--;
             }
 
         }

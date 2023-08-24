@@ -8,7 +8,7 @@ namespace RunnerTask.Abstracts.Patterns
     {
         bool SingleType { get; }
         IEnumerator SpawnRoutine();
-        IEnumerator SpawnRoutineRandom();
+        IEnumerator SpawnRoutineRandomTime();
     }
 }
 
