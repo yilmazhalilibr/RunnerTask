@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 15
   _onlyOneTime: 0
+  _oppositeDirection: 0
 --- !u!1001 &1013318089327488893
 PrefabInstance:
   m_ObjectHideFlags: 0

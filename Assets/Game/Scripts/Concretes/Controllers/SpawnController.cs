@@ -1,4 +1,6 @@
 using RunnerTask.Abstracts.Controllers;
+using RunnerTask.Abstracts.Movements;
+using RunnerTask.Abstracts.Patterns;
 using RunnerTask.Patterns;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using UnityEngine;
 
 namespace RunnerTask.Controllers
 {
-    public class SpawnController : Controller
+    public class SpawnController : Controller, IObjectPoolable
     {
         [Header("Single Object Pool")]
         [SerializeField] float _spawnInterval = .3f;
@@ -18,16 +20,16 @@ namespace RunnerTask.Controllers
         [Header("Random Pool")]
         [SerializeField] float _minSpawnTime;
         [SerializeField] float _maxSpawnTime;
-        [SerializeField,Description("If you check this button, you need use SpawnInterval value.")] bool _theSameInterval;
+        [SerializeField, Description("If you check this button, you need use SpawnInterval value.")] bool _theSameInterval;
         [SerializeField] GameObject[] _objectsPrefabs;
-
 
         WaitForSeconds _waitForSecond;
         ObjectPool _objectPool;
 
         public event System.Action OnSpawnObject;
+
         public override bool SingleType => _singleType;
-        public float ExtraSpawnTime { get; set; }
+        public float ExtraSpawnTime { get; set; }//from manager
 
         private void Awake()
         {
@@ -67,12 +69,11 @@ namespace RunnerTask.Controllers
             {
                 var obj = _objectPool.GetPooledObject();
                 obj.transform.position = transform.position;
-
                 yield return _waitForSecond;
             }
         }
 
-        private IEnumerator SpawnRoutineRandom()
+        public IEnumerator SpawnRoutineRandom()
         {
             while (true)
             {

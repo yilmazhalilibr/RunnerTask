@@ -9,7 +9,6 @@ namespace RunnerTask.Controllers
     {
         [SerializeField] float _speed;
 
-
         IMover _mover;
 
         private void Awake()
@@ -20,8 +19,14 @@ namespace RunnerTask.Controllers
         private void FixedUpdate()
         {
             _mover.Move(_speed);
+
+            if (transform.position.z <= -10f)
+            {
+                transform.position.Set(0, 0, 0);
+                gameObject.SetActive(false);
+            }
         }
-        
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<PlayerController>())

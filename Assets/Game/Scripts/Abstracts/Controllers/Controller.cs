@@ -7,7 +7,7 @@ namespace RunnerTask.Abstracts.Controllers
 {
     public abstract class Controller : MonoBehaviour
     {
-        public virtual bool SingleType { get; protected set; }
+        public virtual bool SingleType { get; set; }
     }
 }
 

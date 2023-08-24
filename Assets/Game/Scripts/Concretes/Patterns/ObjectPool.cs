@@ -1,4 +1,6 @@
 using RunnerTask.Abstracts.Controllers;
+using RunnerTask.Abstracts.Movements;
+using RunnerTask.Controllers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,7 +46,6 @@ namespace RunnerTask.Patterns
                     GameObject obj = GameObject.Instantiate(_objectPrefab, _controller.transform);
                     obj.SetActive(false);
                     _pooledObjects.Enqueue(obj);
-
                 }
             }
             else
@@ -58,6 +59,7 @@ namespace RunnerTask.Patterns
             }
 
         }
+
         public GameObject GetPooledObject()
         {
             GameObject obj = _pooledObjects.Dequeue();
