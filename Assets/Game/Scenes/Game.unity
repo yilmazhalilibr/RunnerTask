@@ -1473,11 +1473,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 211676432564719601, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.020000327
+      value: 0.020000357
       objectReference: {fileID: 0}
     - target: {fileID: 940565744454787448, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.020000327
+      value: 0.020000357
       objectReference: {fileID: 0}
     - target: {fileID: 3365794736696564180, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_Name
@@ -1487,6 +1487,14 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 1895093780}
+    - target: {fileID: 4730725342223320939, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
+      propertyPath: _poolSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4730725342223320939, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
+      propertyPath: _spawnInterval
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7308830762395562781, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_ShadowAngle
       value: 0
