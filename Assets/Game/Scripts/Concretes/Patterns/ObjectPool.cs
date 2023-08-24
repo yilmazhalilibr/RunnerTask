@@ -42,7 +42,9 @@ namespace RunnerTask.Patterns
                 for (int i = 0; i < _poolSize; i++)
                 {
                     GameObject obj = GameObject.Instantiate(_objectPrefab, _controller.transform);
-                    AddPool(obj, false);
+                    obj.SetActive(false);
+                    _pooledObjects.Enqueue(obj);
+
                 }
             }
             else
@@ -50,47 +52,25 @@ namespace RunnerTask.Patterns
                 for (int i = 0; i < _objectPrefabs.Length; i++)
                 {
                     GameObject obj = GameObject.Instantiate(_objectPrefabs[i], _controller.transform);
-                    AddPool(obj, false);
+                    obj.SetActive(false);
+                    _pooledObjects.Enqueue(obj);
                 }
             }
 
         }
-        /**/
         public GameObject GetPooledObject()
         {
             GameObject obj = _pooledObjects.Dequeue();
-            return AddPool(obj, true);
+            obj.SetActive(true);
+            _pooledObjects.Enqueue(obj);
+            return obj;
 
         }
 
-        public GameObject GetPooledObjectRandom()
+        public GameObject GetPoolObjectRandom()
         {
             GameObject obj = _pooledObjects.ToArray()[Random.Range(0, _pooledObjects.Count)];
-
-            if (!obj.activeSelf)
-            {
-
-                return AddPool(obj, true);
-            }
-            else
-            {
-                for (int i = 0; i < _pooledObjects.Count; i++)
-                {
-                    if (!_pooledObjects.ToArray()[i].activeSelf)
-                    {
-                        return _pooledObjects.ToArray()[i];
-                    }
-                    //Debug.Log("Resource new enemy");
-                }
-                return null;
-            }
-
-        }
-        /**/
-
-        private GameObject AddPool(GameObject obj, bool state)
-        {
-            obj.SetActive(state);
+            obj.SetActive(true);
             _pooledObjects.Enqueue(obj);
             return obj;
         }

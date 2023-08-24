@@ -12,9 +12,11 @@ namespace RunnerTask.Movements
         Controller _controller;
 
         private Vector2 touchStartPosition;
+
         private bool isDragging = false;
-        private float targetPositionX = 0f; // Hedef x pozisyonu
-        public float clampValue = 4.5f; // Clamp deðeri
+        private float targetPositionX = 0f;
+        public float clampValue = 4.5f;
+
         public PlayerMover(Controller controller)
         {
             _controller = controller;

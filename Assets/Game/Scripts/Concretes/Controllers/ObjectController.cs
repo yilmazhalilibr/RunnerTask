@@ -10,7 +10,6 @@ namespace RunnerTask.Controllers
         [SerializeField] float _speed;
         [SerializeField] bool _onlyOneTime;
 
-
         IMover _mover;
 
         private void Awake()
@@ -30,7 +29,12 @@ namespace RunnerTask.Controllers
             {
                 gameObject.SetActive(false);
             }
+
         }
+
+
+
+
     }
 }
 
