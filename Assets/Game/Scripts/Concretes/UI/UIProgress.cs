@@ -15,16 +15,15 @@ namespace RunnerTask.UI
             _uIController = uIController;
         }
 
-
         public void RemoveOneRight()
         {
-            if (_uIController.RightImages == null)
+            if (_uIController.RightImages.Count == 0)
             {
                 OnListClear?.Invoke();
             }
             else
             {
-                var lastImage = _uIController.RightImages[_uIController.RightImages.Count];
+                var lastImage = _uIController.RightImages[_uIController.RightImages.Count - 1];
                 lastImage.gameObject.SetActive(false);
                 _uIController.RightImages.Remove(lastImage);
             }

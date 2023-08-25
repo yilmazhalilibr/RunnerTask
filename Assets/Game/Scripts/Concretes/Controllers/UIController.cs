@@ -9,6 +9,8 @@ namespace RunnerTask.Controllers
 {
     public class UIController : Controller
     {
+        [SerializeField] PlayerController _playerController;
+
         [SerializeField] GameObject _rigtsPanel;
         [SerializeField] GameObject _finisPanel;
         [SerializeField] List<RawImage> _rights;
@@ -26,17 +28,22 @@ namespace RunnerTask.Controllers
         private void OnEnable()
         {
             _progress.OnListClear += UIGameOver;
+            _playerController.OnRightRemoved += RemoveRightImage;
         }
         private void OnDisable()
         {
             _progress.OnListClear -= UIGameOver;
+            _playerController.OnRightRemoved -= RemoveRightImage;
         }
         private void UIGameOver()
         {
             _progress.RightPanelState(false);
             _progress.FinishPanelState(true);
         }
-
+        private void RemoveRightImage()
+        {
+            _progress.RemoveOneRight();
+        }
     }
 }
 

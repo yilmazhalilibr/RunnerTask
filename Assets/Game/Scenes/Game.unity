@@ -128,6 +128,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5127161438825020642, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
   m_PrefabInstance: {fileID: 4009270134626572220}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &951932950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2289221653960532469, guid: 1633f2befba62ba4ea7d362ee9787bbd, type: 3}
+  m_PrefabInstance: {fileID: 2490388775074211176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1b24d650343a241886ffca79bf2791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1247839328 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7620261489690420789, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
@@ -254,11 +265,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 211676432564719601, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.020000357
+      value: 0.020000327
+      objectReference: {fileID: 0}
+    - target: {fileID: 872526383472800625, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 940565744454787448, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.020000357
+      value: 0.020000327
       objectReference: {fileID: 0}
     - target: {fileID: 3365794736696564180, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
       propertyPath: m_Name
@@ -312,6 +327,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7620261489690420789, guid: 51741a71602ac1a4e9d77bf6874846e3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -337,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569c1008700822840b0a9daa292e6741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerController: {fileID: 951932950}
   _rigtsPanel: {fileID: 1551534107}
   _finisPanel: {fileID: 741195097}
   _rights:

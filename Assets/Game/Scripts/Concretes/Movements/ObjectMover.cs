@@ -18,8 +18,6 @@ namespace RunnerTask.Movements
             _direction = OppositeDirection ? -1 : 1;
         }
 
-
-
         public void Move(float speed)
         {
             _controller.transform.Translate(new Vector3(0f, 0f, -1f * _direction) * Time.deltaTime * speed);

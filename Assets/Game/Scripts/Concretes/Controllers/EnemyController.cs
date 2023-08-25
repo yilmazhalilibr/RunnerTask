@@ -31,8 +31,8 @@ namespace RunnerTask.Controllers
         {
             if (other.TryGetComponent(out PlayerController playerController))
             {
-                Debug.Log("Accident! One right is over!");
-                playerController.Rights--;
+                //Debug.Log("Accident! One right is gone!");
+                playerController.RemoveRight();
             }
 
         }
