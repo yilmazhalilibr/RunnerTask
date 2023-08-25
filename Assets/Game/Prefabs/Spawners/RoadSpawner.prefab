@@ -44,10 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f28d616139098c4cbe5261e9e9a3bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnInterval: 0.3
-  _poolSize: 16
+  _spawnInterval: 0.2
+  _poolSize: 30
   _objectPrefab: {fileID: 8006779061520211248, guid: ad119f1eb66bdc84aaff1ab796352d33, type: 3}
   _singleType: 1
-  _spawnMinTime: 0
-  _spawnMaxTime: 0
-  _objectPrefabs: []
+  _minSpawnTime: 0
+  _maxSpawnTime: 0
+  _theSameInterval: 0
+  _objectsPrefabs: []
