@@ -1,3 +1,4 @@
+using DG.Tweening;
 using RunnerTask.Abstracts.Controllers;
 using RunnerTask.Abstracts.Movements;
 using RunnerTask.Movements;
@@ -11,7 +12,7 @@ namespace RunnerTask.Controllers
     public class PlayerController : Controller
     {
         [SerializeField] PlayerSO _player;
-
+        [SerializeField] Transform _cameraRoot;
         private float _speed;
         private int _rights;
 
@@ -39,6 +40,8 @@ namespace RunnerTask.Controllers
         {
             _rights--;
             OnRightRemoved?.Invoke();
+            _cameraRoot.DOShakePosition(1f, 1f, 10, 90f);
+
         }
 
 
