@@ -21,10 +21,12 @@ namespace RunnerTask.Controllers
         [SerializeField] float _minSpawnTime;
         [SerializeField] float _maxSpawnTime;
         [SerializeField, Description("If you check this button, you need use SpawnInterval value.")] bool _theSameInterval;
+        [SerializeField] bool _firstStepWait = true;
         [SerializeField] GameObject[] _objectsPrefabs;
 
         WaitForSeconds _waitForSecond;
         ObjectPool _objectPool;
+
 
         public event System.Action OnSpawnObject;
 
@@ -76,6 +78,12 @@ namespace RunnerTask.Controllers
         {
             while (true)
             {
+                if (_firstStepWait)
+                {
+                    yield return new WaitForSeconds(Random.Range(1, 10));
+                    _firstStepWait = false;
+                }
+
                 var obj = _objectPool.GetPooledObject();
                 obj.transform.position = transform.position;
                 float value = _theSameInterval ? _spawnInterval : Random.Range(_minSpawnTime, _maxSpawnTime);
